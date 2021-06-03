@@ -389,7 +389,8 @@ access permissions and consider creating a new instance per web request.
 Create a new `DataLoader` given a batch loading function and options.
 
 - *batchLoadFn*: A function which accepts an Array of keys, and returns a
-  Promise which resolves to an Array of values.
+  Promise which resolves to an Array of values or promises which resolve to
+  values.
 
 - *options*: An optional object of options:
 

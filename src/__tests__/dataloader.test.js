@@ -91,6 +91,23 @@ describe('Primary API', () => {
     expect(values).toEqual([ 'a', 'b', new Error('Bad Key') ]);
   });
 
+  it('supports loading with resolved and rejected promises', async () => {
+    const identityLoader = new DataLoader(keys =>
+      Promise.resolve(
+        keys.map(key => (key === 'bad' ?
+          Promise.reject(new Error('Bad Key')) :
+          Promise.resolve(key))
+        )
+      )
+    );
+
+    const promiseAll = identityLoader.loadMany([ 'a', 'b', 'bad' ]);
+    expect(promiseAll).toBeInstanceOf(Promise);
+
+    const values = await promiseAll;
+    expect(values).toEqual([ 'a', 'b', new Error('Bad Key') ]);
+  });
+
   it('batches multiple requests', async () => {
     const [ identityLoader, loadCalls ] = idLoader<number>();
 

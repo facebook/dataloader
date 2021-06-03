@@ -10,7 +10,7 @@
 // A Function, which when given an Array of keys, returns a Promise of an Array
 // of values or Errors.
 export type BatchLoadFn<K, V> =
-  (keys: $ReadOnlyArray<K>) => Promise<$ReadOnlyArray<V | Error>>;
+  (keys: $ReadOnlyArray<K>) => Promise<$ReadOnlyArray<V | Promise<V> | Error>>;
 
 // Optionally turn off batching or caching or provide a cache key function or a
 // custom cache instance.
