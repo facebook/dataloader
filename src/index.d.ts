@@ -56,7 +56,7 @@ declare class DataLoader<K, V, C = K> {
    * Adds the provied key and value to the cache. If the key already exists, no
    * change is made. Returns itself for method chaining.
    */
-  prime(key: K, value: V | Error): this;
+  prime(key: K, value: V | PromiseLike<V> | Error): this;
 }
 
 declare namespace DataLoader {

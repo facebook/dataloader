@@ -380,6 +380,22 @@ describe('Primary API', () => {
     expect(loadCalls).toEqual([ [ 'B' ] ]);
   });
 
+  it('allows priming the cache with a promise', async () => {
+    const [ identityLoader, loadCalls ] = idLoader<string>();
+
+    identityLoader.prime('A', Promise.resolve('A'));
+
+    const [ a, b ] = await Promise.all([
+      identityLoader.load('A'),
+      identityLoader.load('B')
+    ]);
+
+    expect(a).toBe('A');
+    expect(b).toBe('B');
+
+    expect(loadCalls).toEqual([ [ 'B' ] ]);
+  });
+
 });
 
 describe('Represents Errors', () => {

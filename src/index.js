@@ -178,7 +178,7 @@ class DataLoader<K, V, C = K> {
    *
    * To prime the cache with an error at a key, provide an Error instance.
    */
-  prime(key: K, value: V | Error): this {
+  prime(key: K, value: V | Promise<V> | Error): this {
     var cacheMap = this._cacheMap;
     if (cacheMap) {
       var cacheKey = this._cacheKeyFn(key);
